@@ -1,0 +1,30 @@
+from __future__ import annotations
+
+from config import OUTPUT_REPORTS, ensure_dirs
+from src.utils.helpers import stamp
+
+from predictions.tournament_predictor import run_prediction
+
+
+def main() -> None:
+    ensure_dirs()
+    res = run_prediction(top_n=10)
+
+    sleepers = res["sleepers"]
+    fades = res["fades"]
+
+    run_id = stamp("tournament_report")
+    out_path = OUTPUT_REPORTS / f"{run_id}.txt"
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("TOURNAMENT REPORT\n\n")
+        f.write("SLEEPERS\n")
+        f.write(sleepers.to_string(index=False))
+        f.write("\n\nFADES\n")
+        f.write(fades.to_string(index=False))
+
+    print(f"✓ Report saved to {out_path}")
+
+
+if __name__ == "__main__":
+    main()
