@@ -1,4 +1,4 @@
-# pga-tour-model
+# PGA Tour Model
 Professional PGA Tour performance prediction system
 # 🏌️ PGA Tour Performance Model
 
